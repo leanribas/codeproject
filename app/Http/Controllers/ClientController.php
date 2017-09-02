@@ -3,6 +3,7 @@
 namespace CodeProject\Http\Controllers;
 
 use CodeProject\Repositories\ClientRepository;
+use CodeProject\Services\ClientService;
 use Illuminate\Http\Request;
 
 
@@ -16,13 +17,20 @@ class ClientController extends Controller
     protected $repository;
 
     /**
+     * @var ClientService
+     */
+
+    protected $service;
+
+    /**
      * ClientController constructor.
      * @param ClientRepository $repository
      */
 
-    public function __construct(ClientRepository $repository)
+    public function __construct(ClientRepository $repository, ClientService $service)
     {
         $this->repository = $repository;
+        $this->service = $service;
     }
 
 
@@ -44,7 +52,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->repository->create($request->all());
+        return $this->service->create($request->all());
     }
 
     /**
@@ -67,8 +75,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repository->find($id)->update($request->all());
-        return $this->repository->find($id);
+        return $this->service->update($request->all(), $id);
     }
 
     /**
