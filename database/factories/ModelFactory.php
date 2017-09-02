@@ -30,3 +30,14 @@ $factory->define(CodeProject\Entities\Client::class, function (Faker\Generator $
         'obs' => $faker->paragraph
     ];
 });
+
+$factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id' => rand(1, 10),
+        'client_id' => rand(1, 10),
+        'name' => $faker->word,
+        'description' => $faker->paragraph,
+        'progress' => rand(1,100),
+        'status' => rand(1,3)
+    ];
+});
